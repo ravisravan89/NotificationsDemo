@@ -71,6 +71,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.stacking:
                 generateNotificationsAsstack();
                 break;
+            case R.id.localonly:
+                generateOnlyLocalNotification();
+                break;
         }
     }
 
@@ -97,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
         Uri geoUri = Uri.parse("geo:0,0?q=" + Uri.encode("Hyderabad"));
         mapIntent.setData(geoUri);
         PendingIntent mapPendingIntent =
-                PendingIntent.getActivity(this, 0, mapIntent, 0);
+                PendingIntent.getActivity(this, 1, mapIntent, 0);
 
         NotificationCompat.Builder notificationBuilder =
                 new NotificationCompat.Builder(this)
@@ -112,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(this);
         notificationManagerCompat.notify(notificationId, notificationBuilder.build());
     }
-
+//PendingIntent.FLAG_UPDATE_CURRENT
     //This generates notification with only action visible on wearable.
     private void generateWearableActionNotification() {
         int notificationId = 001;
@@ -120,8 +123,8 @@ public class MainActivity extends AppCompatActivity {
         Intent actionIntent = new Intent(this, MessageActivity.class);
         actionIntent.putExtra("MESSAGE", "You just clicked wearable action notification");
         PendingIntent actionPendingIntent =
-                PendingIntent.getActivity(this, 0, actionIntent,
-                        PendingIntent.FLAG_UPDATE_CURRENT);
+                PendingIntent.getActivity(this, 2, actionIntent,
+                        0);
 
 // Create the action
         NotificationCompat.Action action =
@@ -152,8 +155,8 @@ public class MainActivity extends AppCompatActivity {
         Intent bigtextIntent = new Intent(this, MessageActivity.class);
         bigtextIntent.putExtra("MESSAGE", "You just clicked on big text intent. The content you showed is : " + getString(R.string.big_text));
         PendingIntent bigtextPendingIntent =
-                PendingIntent.getActivity(this, 0, bigtextIntent,
-                        PendingIntent.FLAG_UPDATE_CURRENT);
+                PendingIntent.getActivity(this, 3, bigtextIntent,
+                        0);
 
         NotificationCompat.Builder notificationBuilder =
                 new NotificationCompat.Builder(MainActivity.this)
@@ -184,8 +187,8 @@ public class MainActivity extends AppCompatActivity {
         Intent backgroundIntent = new Intent(this, MessageActivity.class);
         backgroundIntent.putExtra("MESSAGE", "You just clicked on notification with background visible on wearable");
         PendingIntent backgroundPendingIntent =
-                PendingIntent.getActivity(this, 0, backgroundIntent,
-                        PendingIntent.FLAG_UPDATE_CURRENT);
+                PendingIntent.getActivity(this, 4, backgroundIntent,
+                        0);
 
         NotificationCompat.Builder notificationBuilder =
                 new NotificationCompat.Builder(MainActivity.this)
@@ -210,8 +213,8 @@ public class MainActivity extends AppCompatActivity {
                 .build();
         Intent replyIntent = new Intent(this, MessageActivity.class);
         PendingIntent replyPendingIntent =
-                PendingIntent.getActivity(this, 0, replyIntent,
-                        PendingIntent.FLAG_UPDATE_CURRENT);
+                PendingIntent.getActivity(this, 5, replyIntent,
+                        0);
         // Create the reply action and add the remote input
         NotificationCompat.Action action =
                 new NotificationCompat.Action.Builder(R.drawable.reply,
@@ -240,8 +243,8 @@ public class MainActivity extends AppCompatActivity {
         Intent pagesIntent = new Intent(this, MessageActivity.class);
         pagesIntent.putExtra("MESSAGE", "You just clicked on notification with Pages");
         PendingIntent pagesPendingIntent =
-                PendingIntent.getActivity(this, 0, pagesIntent,
-                        PendingIntent.FLAG_UPDATE_CURRENT);
+                PendingIntent.getActivity(this, 6, pagesIntent,
+                        0);
 
         NotificationCompat.Builder notificationBuilder =
                 new NotificationCompat.Builder(this)
@@ -326,5 +329,21 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
         notificationManager.notify(++notificationId, summaryNotification);
+    }
+
+    private void generateOnlyLocalNotification(){
+        int notificationId = 001;
+        Intent messageIntent = new Intent(MainActivity.this, MessageActivity.class);
+        messageIntent.putExtra("MESSAGE", "You just clicked a simple notification, which is only local");
+        PendingIntent messagePendingIntent = PendingIntent.getActivity(this, 7, messageIntent, 0);
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
+                .setSmallIcon(R.drawable.ic_normal)
+                .setContentTitle("Simple Notification")
+                .setContentText("This notification doesn't appear on wearable")
+                .setContentIntent(messagePendingIntent)
+                .setLocalOnly(true)
+                .setAutoCancel(true);
+        NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(this);
+        notificationManagerCompat.notify(notificationId, notificationBuilder.build());
     }
 }

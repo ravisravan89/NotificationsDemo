@@ -101,5 +101,16 @@
             android:text="Stacking Notifications"
             android:textColor="#ff852b" />
 
+        <Button
+            android:id="@+id/localonly"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:background="#123456"
+            android:onClick="triggerButtonPress"
+            android:layout_below="@+id/stacking"
+            android:text="Local Notification"
+            android:textColor="#ff852b" />
+
     </RelativeLayout>
 </ScrollView>
