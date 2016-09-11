@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">NotificationsDemo</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_message">MessageActivity</string>
+    <string name="big_text">This is the content of your email or event card. The content here is very lengthy,
+        so on wearable devices we will be able to see the whole content on swiping the notification.
+        On a handheld users can touch one of these notifications and it will expand to show more info
+        But on a wear device the content is automatically extended to fill the display, since there is
+        more vertical space available.</string>
+    <string-array name="reply_choices">
+        <item>Yes</item>
+        <item>No</item>
+        <item>Maybe</item>
+        <item>Alright</item>
+        <item>Fine</item>
+        <item>Okay</item>
+    </string-array>
+</resources>
